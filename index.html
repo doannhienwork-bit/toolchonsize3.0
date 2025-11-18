@@ -444,84 +444,154 @@ body{
       border-color:#fecaca;
       color:#b91c1c;
     }
-    
-    /* Khung trang chung */
-body {
-  margin: 0;
-  font-family: 'Be Vietnam Pro', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
-/* Nếu đang có .page rồi thì chỉ cần thêm max-width cho .shell thôi */
-.shell {
-  max-width: 1200px;   /* Giới hạn chiều rộng tối đa */
-  margin: 0 auto;      /* Canh giữa */
-}
-
-/* Padding cho toàn trang */
-main {
-  padding: 16px;
-}
-@media (min-width: 1024px) {
-  main {
-    padding: 32px 16px;
-  }
-}
-/* Cho bảng size nam, nữ và bảng danh sách đội có thể cuộn ngang */
-#maleTblWrap,
-#femaleTblWrap,
-.team-table-wrap {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Đảm bảo bảng rộng tối thiểu, để nội dung không bị nát */
-#maleTblWrap table,
-#femaleTblWrap table,
-.team-table-wrap table {
-  min-width: 600px;
-}
-/* Mobile: <= 640px */
-@media (max-width: 640px) {
-  h1 {
-    font-size: 20px;
-  }
-
-  .subtitle {
-    font-size: 14px;
-  }
-
-  table {
-    font-size: 12px;
-  }
-
-  th, td {
-    padding: 6px 4px;
-  }
-
-  /* Nút to dễ bấm, xếp dọc cho đỡ chật */
-  .btn {
-    min-height: 42px;
-    font-size: 14px;
-  }
-
-  .team-bottom-buttons {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .team-bottom-buttons .btn.small {
-    width: 100%;
-    justify-content: center;
-  }
-}
+  
+/* ===== Responsive & mobile app-like layout ===== */
 img {
   max-width: 100%;
   height: auto;
   display: block;
 }
 
+/* Tables: allow smooth horizontal scroll on small screens */
+#maleTblWrap,
+#femaleTblWrap,
+#kidTblWrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
 
-  </style>
+#maleTblWrap table,
+#femaleTblWrap table,
+#kidTblWrap table {
+  min-width: 620px;
+}
+
+/* Team table already scrolls; tweak for mobile height */
+@media (max-width: 768px) {
+  .team-table-wrap {
+    max-height: 60vh;
+  }
+}
+
+/* Mobile-first adjustments */
+@media (max-width: 1024px) {
+  main {
+    margin: 16px auto;
+    padding: 0 10px 18px;
+  }
+
+  .shell {
+    padding: 16px 14px 18px;
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .shell {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .card-left,
+  .card-middle,
+  .card-right {
+    border-right: none !important;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+  }
+
+  .illu-wrap {
+    margin-bottom: 10px;
+  }
+
+  .illu-wrap img {
+    margin: 0 auto;
+    max-width: 260px;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  label {
+    font-size: 13px;
+    margin: 8px 0 4px;
+  }
+
+  input,
+  select {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  th,
+  td {
+    padding: 6px 4px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+
+  .team-box {
+    margin-top: 10px;
+  }
+
+  .team-bottom-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .team-bottom-buttons .btn.small {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .btn {
+    font-size: 14px;
+    padding: 10px 16px;
+    min-height: 44px; /* touch friendly */
+  }
+
+  .mode-tabs {
+    gap: 8px;
+  }
+
+  .mode-pill {
+    font-size: 12px;
+    padding: 10px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    margin: 10px auto;
+    padding: 0 8px 16px;
+  }
+
+  .shell {
+    padding: 14px 12px 16px;
+    border-radius: 18px;
+    box-shadow: 0 10px 24px rgba(15,23,42,0.14);
+  }
+
+  .subtitle {
+    font-size: 15px;
+  }
+
+  .team-table-wrap table {
+    min-width: 540px;
+  }
+}
+
+</style>
 
   <!-- SheetJS để đọc/ghi Excel -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -589,7 +659,7 @@ img {
       Bạn có thể:
       <br>• Bấm <b>Tải về</b> để lưu file Excel
       <br>• Sau đó gửi file thủ công qua Zalo, Messenger hoặc Email<br><br>
-      <i>Gợi ý: Chức năng chia sẻ file thường hoạt động tốt trên thiết bị IOS (iPhone).</i>
+      <i>Gợi ý: Chức năng chia sẻ file thường hoạt động tốt trên thiết bị IOS.</i>
     </p>
 
     <button class="popup-close" onclick="closeShareGuide()">Đã hiểu ✔</button>
